@@ -1,0 +1,52 @@
+<div class="container">
+    <div ng-repeat="s in steps track by $index" ng-show='$index === step'>
+        <h4>{{ s.title }}</h4>
+        <div class='inputContainer'>
+            <div ng-if="steps[step].dependent == false">
+                <input type='text' ng-model='steps[step].data[0]'>
+            </div>
+            <div ng-if="step === columnWeightStep" ng-repeat='s in steps[columnStep].data track by $index'>
+                <label>{{ s }}</label>
+                <input type='number' ng-model='steps[step].data[$index]' placeholder='Enter weight for {{ s }}'>
+            </div>
+            <div ng-if="step === matrixStep">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Criterion</th>
+                            <th ng-repeat='s in steps[columnStep].data track by $index'>
+                                {{ s }}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat='s1 in steps[rowStep].data track by $index'>
+                            <td>
+                                <strong>{{ steps[rowStep].data[$index] }}</strong>
+                            </td>
+                            <td ng-repeat='s3 in steps[columnStep].data track by $index'>
+                                <input type='number' ng-model='steps[step].data[$parent.$index][$index]' placeholder='Rate {{ s3 }} on {{ s1 }}'>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div ng-if="steps[step].multiple == true && steps[step].dependent == false" ng-repeat='s in steps[step].data track by $index'>
+                <input type='text' ng-model='steps[step].data[$index + 1]' placeholder='{{ $index + 1 }}'>
+            </div>
+
+            <div ng-if="step === steps.length - 1">
+                <h3 ng-repeat='s in steps[step].data track by $index'>
+                    {{ steps[rowStep].data[$index]  }} : {{ s }}
+                </h3>
+            </div>
+        </div>
+
+    </div>
+
+    <div>
+        <button type="button" ng-hide="step === 0" ng-click="previous()">{{ steps[step - 1].title }}</button>
+        <button type="button" ng-hide="step === steps.length - 1" ng-click="next()">{{ steps[step + 1].title }}</button>
+    </div>
+
+</div>
