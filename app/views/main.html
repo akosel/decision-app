@@ -1,7 +1,20 @@
-<div class="container">
+<div id='content' class="container">
+    <div class='infoContainer' ng-show='step === 0'>
+        <p>There are choices that matter, and then there are those that don't. This site is about the ones that matter.</p>
+        <p>The psychologist Daniel Kahnemann made a distinction between System 1 and System 2 thinking. Basically, System 1 thinking refers to the quick, intuitive, and nearly effortless way of thinking; most of the time, we humans use System 1 because it is easy and automatic. On the other hand, System 2 refers to the slow, logical, conscious, and effortful way of thinking. While we tend to default to System 1 with good reason, there are certainly times where we need to engage System 2 to make an appropriate decision.</p>
+        <p>This site will walk you through a conscious process of identifying a problem, and then encouraging you to take the time to think about what you value. While taking the time to consciously identify these steps is tedious, that is sort of the point. By breaking down what matters to you, the hope is that a better decision can be reached when it matters the most.
+        </p> 
+    </div>
+    <div class='infoContainer' ng-show='step > 0'>
+        <div ng-repeat='s in steps track by $index' ng-show='$index + 1 <= step'>
+            <strong>{{ $index + 1}}. {{ s.title }}: </strong><span>{{ steps[$index].data[0] }}</span>
+        </div>
+    </div>
     <div ng-repeat="s in steps track by $index" ng-show='$index === step'>
-        <h4>{{ s.title }}</h4>
-        <strong>{{ s.description }}</strong>
+        <div class='header'>
+            <h3>{{ $index + 1 }}.{{ s.title }}</h3>
+            <p>{{ s.description }}</p>
+        </div>
         <form class='inputContainer' name='stepForm' novalidate>
             <div ng-if="steps[step].dependent == false">
                 <input class='form-control' ng-class="{ 'ng-dirty' : submitted }" type='text' placeholder='{{ s.title }}' name='stepOne' ng-model='steps[step].data[0]' required>
@@ -41,7 +54,7 @@
                 </table>
             </div>
             <div ng-if="steps[step].multiple == true && steps[step].dependent == false" ng-repeat='s in steps[step].data track by $index'>
-                <input class='form-control' ng-class="{ 'ng-dirty' : submitted }" type='text' ng-model='steps[step].data[$index + 1]' placeholder='{{ $index + 1 }}'>
+                <input class='form-control' ng-class="{ 'ng-dirty' : submitted }" type='text' ng-model='steps[step].data[$index + 1]' placeholder='{{ s.title }}'>
             </div>
 
             <div ng-if="step === steps.length - 1">

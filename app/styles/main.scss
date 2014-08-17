@@ -11,7 +11,8 @@
 body {
   padding-top: 20px;
   padding-bottom: 20px;
-  font-family: Futura;
+  font-family: 'Proxima Nova', Futura;
+  font-size: 16px;
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */
@@ -26,24 +27,26 @@ body {
 .header {
   border-bottom: 1px solid #e5e5e5;
 
-/* Make the masthead heading the same height as the navigation */
-h3 {
-    margin-top: 0;
-    margin-bottom: 0;
-    line-height: 40px;
-    padding-bottom: 19px;
-  }
-  .nav {
-    li {
-        display: inline-block;
-        padding: 2em;
-        background-color: black;
-    }
-    a {
-        color: white;
+    /* Make the masthead heading the same height as the navigation */
+    h3 {
+        margin-top: 0;
+        margin-bottom: 0;
+        line-height: 40px;
+        padding-bottom: 19px;
+        font-family: Futura;
+        font-size: 25px;
+      }
+      .nav {
+        li {
+            display: inline-block;
+            padding: 2em;
+            background-color: black;
+        }
+        a {
+            color: white;
 
-    }
-  }
+        }
+      }
 }
 
 /* Custom page footer */
@@ -153,6 +156,11 @@ input[type="datetime-local"].input-lg,
 input[type="month"].input-lg {
    line-height: 46px;
    line-height: 1.33 \0;
+}
+.infoContainer {
+  border-bottom: 1px solid #e5e5e5;
+  margin: 1em 0;
+  padding: 2em 0;
 }
 .inputContainer {
     margin: 3em 0;

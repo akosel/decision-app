@@ -25,12 +25,12 @@ angular.module('decisionApp')
 
       $scope.steps = [
 
-            {'title': 'Define the Problem', 'description': 'Take some time to think about what problem your choices are trying to decide. Then, write it out.', 'data': [], 'multiple': false, 'dependent': false, 'type': 'string'}, 
-            {'title': 'Determine Criteria', 'data': [], 'multiple': true, 'dependent': false, 'type': 'string'}, 
-            {'title': 'Weight Criteria', 'data': [], 'multiple': false, 'dependent': true, 'type': 'number'}, 
-            {'title': 'Identify Choices', 'data': [], 'multiple': true, 'dependent': false, 'type': 'string'}, 
-            {'title': 'Rate Each Choice', 'data': [], 'multiple': true, 'dependent': true, 'type': 'number'}, 
-            {'title': 'Find Optimal Decision', 'data': [], 'dependent': true, 'multiple': true}
+            {'title': 'Define the Problem', 'description': 'Take some time on this one. Oftentimes, a problem is poorly defined or identified as a symptom rather than the root cause.', 'data': [], 'multiple': false, 'dependent': false}, 
+            {'title': 'Determine Values', 'description': 'Values are different aspects of a problem that influence the final decision. For example, a choice for a job may be influenced by location, wages, culture, and the others.', 'data': [], 'multiple': true, 'dependent': false}, 
+            {'title': 'Weight Importance of Values', 'description': 'The values may carry different weight as well. Keeping with jobs example, a desire to reduce commute time might be relatively more important than wages. You can use whatever scale you want (i.e. 1-100), but just note that higher numbers indicate that you prefer the value more.', 'data': [], 'multiple': false, 'dependent': true}, 
+            {'title': 'Identify Choices', 'description': 'You often have a number of choices at a particular time. Try to identify all of the relevant ones for your problem.', 'data': [], 'multiple': true, 'dependent': false}, 
+            {'title': 'Rate Each Choice', 'description': 'This can be tough. Take determine how you would rate each choice for each particular value. Again, you can use whatever scale you want (i.e. 1-100), but just note that higher numbers indicate that you prefer the value more.', 'data': [], 'multiple': true, 'dependent': true}, 
+            {'title': 'Find Optimal Decision', 'description': '', 'data': [], 'dependent': true, 'multiple': true}
 
       ]; 
 
