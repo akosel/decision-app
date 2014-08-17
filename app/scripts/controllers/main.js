@@ -25,7 +25,7 @@ angular.module('decisionApp')
 
       $scope.steps = [
 
-            {'title': 'Define the Problem', 'data': [], 'multiple': false, 'dependent': false, 'type': 'string'}, 
+            {'title': 'Define the Problem', 'description': 'Take some time to think about what problem your choices are trying to decide. Then, write it out.', 'data': [], 'multiple': false, 'dependent': false, 'type': 'string'}, 
             {'title': 'Determine Criteria', 'data': [], 'multiple': true, 'dependent': false, 'type': 'string'}, 
             {'title': 'Weight Criteria', 'data': [], 'multiple': false, 'dependent': true, 'type': 'number'}, 
             {'title': 'Identify Choices', 'data': [], 'multiple': true, 'dependent': false, 'type': 'string'}, 
@@ -41,7 +41,13 @@ angular.module('decisionApp')
           $scope.step -= 1;
       };
 
-      $scope.next = function() {
+      $scope.submitted = false;
+
+      $scope.next = function(isValid) {
+          if (!isValid) {
+            $scope.submitted = true;
+            return;
+          }
           if ($scope.step === $scope.rowStep) {
             $scope.addRow();
           }
@@ -55,19 +61,10 @@ angular.module('decisionApp')
                   $scope.steps[$scope.step + 1].data.push(sum);
               } 
           }
-          // add some validation for the type
-          // if (Number(this.stepData)) {
-          //     this.input = Number(this.stepData);
-          // }
-
-          // if (typeof(this.stepData) === $scope.steps[$scope.step].type) { 
-          //     console.log('match'); 
-          // }
 
           // update the data
           $scope.step += 1;
-
-
+          $scope.submitted = false;
       };
 
 

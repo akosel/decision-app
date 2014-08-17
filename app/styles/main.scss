@@ -84,41 +84,114 @@ button {
     border: none;
     cursor: pointer; 
 }
-
-input {
-    padding: .25em 1em;
+button:hover {
+    background-color: grey;
 }
-
+.form-control {
+    display: block;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+ }
+.form-control:focus {
+     border-color: #66afe9;
+     outline: 0;
+     -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+     box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, .6);
+ }
+.form-control::-moz-placeholder {
+     color: #999;
+     opacity: 1;
+ }
+.form-control:-ms-input-placeholder {
+     color: #999;
+}
+.form-control::-webkit-input-placeholder {
+   color: #999;
+}
+.form-control[disabled],
+.form-control[readonly],
+fieldset[disabled] .form-control {
+     cursor: not-allowed;
+     background-color: #eee;
+     opacity: 1;
+}
+textarea.form-control {
+   height: auto;
+}
+input[type="search"] {
+     -webkit-appearance: none;
+}
+input[type="date"],
+input[type="time"],
+input[type="datetime-local"],
+input[type="month"] {
+   line-height: 34px;
+   line-height: 1.42857143 \0;
+}
+input[type="date"].input-sm,
+input[type="time"].input-sm,
+input[type="datetime-local"].input-sm,
+input[type="month"].input-sm {
+   line-height: 30px;
+   line-height: 1.5 \0;
+}
+input[type="date"].input-lg,
+input[type="time"].input-lg,
+input[type="datetime-local"].input-lg,
+input[type="month"].input-lg {
+   line-height: 46px;
+   line-height: 1.33 \0;
+}
 .inputContainer {
     margin: 3em 0;
 }
+.buttonContainer {
+    margin: 3em 0;
+}
 
-table {
-    thead {
 
-    }
+.ng-valid.ng-dirty {
+    border-color:#78FA89;
+}
+.ng-invalid.ng-dirty {
+    border-color:#FA787E;
+}
+.error {
+    color:#FA787E;
 }
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
-  .container {
-    max-width: 730px;
-    margin: 0 auto;
+    .container {
+        max-width: 730px;
+        margin: 0 auto;
   }
 
   /* Remove the padding we set earlier */
   .header,
   .marketing,
   .footer {
-    padding-left: 0;
-    padding-right: 0;
+      padding-left: 0;
+      padding-right: 0;
   }
   /* Space out the masthead */
   .header {
-    margin-bottom: 30px;
+      margin-bottom: 30px;
   }
   /* Remove the bottom border on the jumbotron for visual effect */
   .jumbotron {
-    border-bottom: 0;
+      border-bottom: 0;
   }
 }
