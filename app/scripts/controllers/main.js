@@ -9,6 +9,17 @@
  */
 angular.module('decisionApp')
   .controller('MainCtrl', function ($scope) {
+
+      $scope.dragCallback = function(event, ui, $index) {
+          $scope.steps[$scope.columnWeightStep].data = [];
+      };
+      $scope.dropCallback = function(event, ui, $index) {
+          for (var i = 0; i < $scope.steps[$scope.columnStep].data.length; i += 1) {
+            $scope.steps[$scope.columnWeightStep].data.push($scope.steps[$scope.columnStep].data.length - i);
+          }
+            console.log($scope.steps[$scope.columnStep].data);
+      };
+
       $scope.step = 0;
 
       $scope.columnStep = 1;
@@ -51,6 +62,7 @@ angular.module('decisionApp')
           if ($scope.step === $scope.rowStep) {
             $scope.addRow();
           }
+
           if ($scope.step === $scope.matrixStep) {
               for (var i = 0; i < $scope.steps[$scope.matrixStep].data.length; i += 1) {
                   var sum = 0;

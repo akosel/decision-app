@@ -27,15 +27,19 @@
                     </small>
                 </div>
             </div>
-            <div ng-if="step === columnWeightStep" ng-repeat='s in steps[columnStep].data track by $index'>
-                <label>{{ s }}</label>
+            <div style='padding: 3em; border:solid;' data-drop='true' jqyoui-droppable='{index: {{ $index }}, onDrop: "dropCallback($index)"}' ng-if="step === columnWeightStep" ng-model='steps[columnStep].data' ng-repeat='s in steps[columnStep].data track by $index'>
+                <!--<label>{{ s }}</label>
                 <input class='form-control' ng-class="{ 'ng-dirty' : submitted }" type='number' ng-model='steps[step].data[$index]' placeholder='Enter weight for {{ s }}' required>
+                -->
+                <div style='padding: 2.5em; background-color: grey; border:solid;' data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model='steps[columnStep].data' jqyoui-draggable="{index: {{ $index }}, animate: true,  onDrag: 'dragCallback($index)'}"> 
+                    <strong>{{ $index + 1 }}. {{ s }}</strong>
+                </div>
             </div>
             <div ng-if="step === matrixStep">
                 <table>
                     <thead>
                         <tr>
-                            <th>Criterion</th>
+                            <th>Value</th>
                             <th ng-repeat='s in steps[columnStep].data track by $index'>
                                 {{ s }}
                             </th>
