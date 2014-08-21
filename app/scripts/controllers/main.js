@@ -10,16 +10,6 @@
 angular.module('decisionApp')
   .controller('MainCtrl', function ($scope) {
 
-      $scope.dragCallback = function(event, ui, $index) {
-          $scope.steps[$scope.columnWeightStep].data = [];
-      };
-      $scope.dropCallback = function(event, ui, $index) {
-          for (var i = 0; i < $scope.steps[$scope.columnStep].data.length; i += 1) {
-            $scope.steps[$scope.columnWeightStep].data.push($scope.steps[$scope.columnStep].data.length - i);
-          }
-            console.log($scope.steps[$scope.columnStep].data);
-      };
-
       $scope.step = 0;
 
       $scope.columnStep = 1;
@@ -27,13 +17,24 @@ angular.module('decisionApp')
       $scope.rowStep = 3;
       $scope.matrixStep = 4;
 
-      // XXX such hacks. ng-init was calling the function way too many times. maybe try something else later. for now, whatever.
-      $scope.addRow = function() {
-        for (var i = 0; i < $scope.steps[$scope.rowStep].data.length; i += 1) {
-            $scope.steps[$scope.matrixStep].data.push([]);
-        }
+      $scope.dragCallback = function(event, ui, $index) {
+          console.log('drag', $index);
+      };
+      $scope.dropCallback = function(event, ui, $index) {
+          // for (var i = 0; i < $scope.steps[$scope.columnStep].data.length; i += 1) {
+          //   $scope.steps[$scope.columnWeightStep].data.push($scope.steps[$scope.columnStep].data.length - i);
+          // }
+          console.log('drop', $index, $scope.steps[$scope.matrixStep].data);
       };
 
+      // XXX such hacks. ng-init was calling the function way too many times. maybe try something else later. for now, whatever.
+      $scope.addRow = function() {
+          console.log('add row');
+        for (var i = 0; i < $scope.steps[$scope.columnStep].data.length; i += 1) {
+            $scope.steps[$scope.matrixStep].data.push($scope.steps[$scope.rowStep].data.slice(0));
+        }
+      };
+      
       $scope.steps = [
 
             {'title': 'Define the Problem', 'description': 'Take some time on this one. Oftentimes, a problem is poorly defined or identified as a symptom rather than the root cause.', 'data': [], 'multiple': false, 'dependent': false}, 
@@ -54,6 +55,11 @@ angular.module('decisionApp')
 
       $scope.submitted = false;
 
+      $scope.getWeight = function(array, item) {
+          console.log(array, item);
+         return array.length - array.indexOf(item); 
+      };
+
       $scope.next = function(isValid) {
           if (!isValid) {
             $scope.submitted = true;
@@ -64,13 +70,13 @@ angular.module('decisionApp')
           }
 
           if ($scope.step === $scope.matrixStep) {
-              for (var i = 0; i < $scope.steps[$scope.matrixStep].data.length; i += 1) {
-                  var sum = 0;
-                  for (var j = 0; j < $scope.steps[$scope.matrixStep].data[i].length; j += 1) {
-                    sum +=  $scope.steps[$scope.matrixStep].data[i][j] * $scope.steps[$scope.columnWeightStep].data[j];
+              var totals = Array.apply(null, new Array($scope.steps[$scope.rowStep].data.length)).map(Number.prototype.valueOf,0);
+              for (var i = 0; i < $scope.steps[$scope.rowStep].data.length; i += 1) {
+                  for (var j = 0; j < $scope.steps[$scope.columnStep].data.length; j += 1) {
+                    totals[$scope.steps[$scope.rowStep].data.indexOf($scope.steps[$scope.matrixStep].data[j][i])] +=  $scope.getWeight($scope.steps[$scope.matrixStep].data[j], $scope.steps[$scope.matrixStep].data[j][i]) * $scope.getWeight($scope.steps[$scope.columnStep].data, $scope.steps[$scope.columnStep].data[j]);
+                  console.log(totals);
                   }
-                  console.log(sum);
-                  $scope.steps[$scope.step + 1].data.push(sum);
+                  $scope.steps[$scope.step + 1].data = totals;
               } 
           }
 

@@ -6,8 +6,8 @@
         </p> 
     </div>
     <div class='infoContainer' ng-show='step > 0'>
-        <div ng-repeat='s in steps track by $index' ng-show='$index + 1 <= step'>
-            <strong>{{ $index + 1}}. {{ s.title }}: </strong><span>{{ steps[$index].data[0] }}</span>
+        <div>
+            <strong>The Problem: </strong><span>{{ steps[0].data[0] }}</span>
         </div>
     </div>
     <div ng-repeat="s in steps track by $index" ng-show='$index === step'>
@@ -27,31 +27,34 @@
                     </small>
                 </div>
             </div>
-            <div style='padding: 3em; border:solid;' data-drop='true' jqyoui-droppable='{index: {{ $index }}, onDrop: "dropCallback($index)"}' ng-if="step === columnWeightStep" ng-model='steps[columnStep].data' ng-repeat='s in steps[columnStep].data track by $index'>
+            <div class='dragContainer' data-drop='true' data-jqyoui-options='{hoverClass: "hover-class"}' jqyoui-droppable='{index: {{ $index }}, onDrop: "dropCallback($index)"}' ng-if="step === columnWeightStep" ng-model='steps[columnStep].data' ng-repeat='s in steps[columnStep].data track by $index'>
                 <!--<label>{{ s }}</label>
                 <input class='form-control' ng-class="{ 'ng-dirty' : submitted }" type='number' ng-model='steps[step].data[$index]' placeholder='Enter weight for {{ s }}' required>
                 -->
-                <div style='padding: 2.5em; background-color: grey; border:solid;' data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model='steps[columnStep].data' jqyoui-draggable="{index: {{ $index }}, animate: true,  onDrag: 'dragCallback($index)'}"> 
+                <div data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model='steps[columnStep].data' jqyoui-draggable="{index: {{ $index }}, onDrag: 'dragCallback($index)'}"> 
                     <strong>{{ $index + 1 }}. {{ s }}</strong>
+                    <span style='float: right'></span>
                 </div>
             </div>
             <div ng-if="step === matrixStep">
                 <table>
                     <thead>
                         <tr>
-                            <th>Value</th>
                             <th ng-repeat='s in steps[columnStep].data track by $index'>
                                 {{ s }}
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat='s1 in steps[rowStep].data track by $index'>
-                            <td>
-                                <strong>{{ steps[rowStep].data[$index] }}</strong>
-                            </td>
-                            <td ng-repeat='s3 in steps[columnStep].data track by $index'>
-                                <input class='form-control' ng-class="{ 'ng-dirty' : submitted }" type='number' ng-model='steps[step].data[$parent.$index][$index]' placeholder='Rate {{ s3 }} on {{ s1 }}' required>
+                        <tr>
+                            <td ng-repeat='s in steps[columnStep].data track by $index'>
+                                <div class='dragContainer' data-drop='true' data-jqyoui-options='{hoverClass: "hover-class", scope: "{{ s }}"}' jqyoui-droppable='{index: {{ $index }}, onDrop: "dropCallback($index)"}' ng-model='steps[matrixStep].data[$parent.$index]' ng-repeat='c in steps[rowStep].data track by $index'>
+                                
+                                    <div data-drag="true" data-jqyoui-options='{revert: "invalid", scope: "{{ s }}"}' ng-model='steps[matrixStep].data[$parent.$index]' jqyoui-draggable="{index: {{ $index }}, onDrag: 'dragCallback($index)'}"> 
+                                        <strong>{{ steps[matrixStep].data[$parent.$index][$index] }}</strong>
+                                        <span style='float: right'></span>
+                                    </div>
+                                </div>
                             </td>
                         </tr>
                     </tbody>

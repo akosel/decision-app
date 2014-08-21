@@ -179,7 +179,26 @@ input[type="month"].input-lg {
 .error {
     color:#FA787E;
 }
-
+.hover-class {
+    color:#78FA89;
+}
+.dragContainer {
+    display: border-box;
+    border: dashed;
+    .ui-draggable {
+        color:white;
+        background-color:black;
+        margin: 1em auto;
+        padding: 1em 2em;
+    }
+    .ui-draggable-dragging {
+        opacity: .5;
+    }
+}
+/* apply a natural box layout model to all elements */
+*, *:before, *:after {
+      -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+}
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
     .container {
