@@ -28,7 +28,7 @@ angular.module('decisionApp')
 
       // XXX such hacks. ng-init was calling the function way too many times. maybe try something else later. for now, whatever.
       $scope.addRow = function() {
-        if ($scope.steps[$scope.columnStep].data.length !== $scope.steps[$scope.matrixStep].data.length) {
+        if ($scope.steps[$scope.columnStep].data.length !== $scope.steps[$scope.matrixStep].data.length || $scope.steps[$scope.rowStep].data.length !== $scope.steps[$scope.matrixStep].data[0].length) {
             $scope.steps[$scope.matrixStep].data = [];
             for (var i = 0; i < $scope.steps[$scope.columnStep].data.length; i += 1) {
                 $scope.steps[$scope.matrixStep].data.push($scope.steps[$scope.rowStep].data.slice(0));
