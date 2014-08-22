@@ -12,7 +12,8 @@
     "angular-touch": "1.2.16",
     "angular-route": "1.2.16",
     "jquery": "2.x",
-    "jquery-ui": "latest"
+    "jquery-ui": "latest",
+    "angular-local-storage": "~0.0.7"
   },
   "devDependencies": {
     "angular-mocks": "1.2.16",

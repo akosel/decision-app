@@ -8,9 +8,8 @@
  * Controller of the decisionApp
  */
 angular.module('decisionApp')
-  .controller('MainCtrl', function ($scope) {
-
-      $scope.step = 0;
+  .controller('MainCtrl', function ($scope, localStorageService) {
+//     localStorageService.clearAll();
 
       $scope.columnStep = 1;
       $scope.columnWeightStep = 2;
@@ -29,26 +28,35 @@ angular.module('decisionApp')
 
       // XXX such hacks. ng-init was calling the function way too many times. maybe try something else later. for now, whatever.
       $scope.addRow = function() {
-          console.log('add row');
-        for (var i = 0; i < $scope.steps[$scope.columnStep].data.length; i += 1) {
-            $scope.steps[$scope.matrixStep].data.push($scope.steps[$scope.rowStep].data.slice(0));
+        if ($scope.steps[$scope.columnStep].data.length !== $scope.steps[$scope.matrixStep].data.length) {
+            $scope.steps[$scope.matrixStep].data = [];
+            for (var i = 0; i < $scope.steps[$scope.columnStep].data.length; i += 1) {
+                $scope.steps[$scope.matrixStep].data.push($scope.steps[$scope.rowStep].data.slice(0));
+            }
         }
       };
+
+      $scope.setInitialState = function(reset) {
+          if (reset) {
+                localStorageService.clearAll();
+          }
+          $scope.step = localStorageService.get('step') ? Number(localStorageService.get('step')) : 0;
+          $scope.steps = localStorageService.get('steps') ? localStorageService.get('steps') : [
+
+                {'title': 'Define the Problem', 'description': 'Take some time on this one. Oftentimes, a problem is poorly defined or identified as a symptom rather than the root cause.', 'data': [], 'multiple': false, 'dependent': false}, 
+                {'title': 'Determine Values', 'description': 'Values are different aspects of a problem that influence the final decision. For example, a choice for a job may be influenced by location, wages, culture, and the others.', 'data': [], 'multiple': true, 'dependent': false}, 
+                {'title': 'Weight Importance of Values', 'description': 'The values may carry different weight as well. Keeping with jobs example, a desire to reduce commute time might be relatively more important than wages. You can use whatever scale you want (i.e. 1-100), but just note that higher numbers indicate that you prefer the value more.', 'data': [], 'multiple': false, 'dependent': true}, 
+                {'title': 'Identify Choices', 'description': 'You often have a number of choices at a particular time. Try to identify all of the relevant ones for your problem.', 'data': [], 'multiple': true, 'dependent': false}, 
+                {'title': 'Rate Each Choice', 'description': 'This can be tough. Take determine how you would rate each choice for each particular value. Again, you can use whatever scale you want (i.e. 1-100), but just note that higher numbers indicate that you prefer the value more.', 'data': [], 'multiple': true, 'dependent': true}, 
+                {'title': 'Find Optimal Decision', 'description': '', 'data': [], 'dependent': true, 'multiple': true}
+
+          ]; 
+      };
       
-      $scope.steps = [
-
-            {'title': 'Define the Problem', 'description': 'Take some time on this one. Oftentimes, a problem is poorly defined or identified as a symptom rather than the root cause.', 'data': [], 'multiple': false, 'dependent': false}, 
-            {'title': 'Determine Values', 'description': 'Values are different aspects of a problem that influence the final decision. For example, a choice for a job may be influenced by location, wages, culture, and the others.', 'data': [], 'multiple': true, 'dependent': false}, 
-            {'title': 'Weight Importance of Values', 'description': 'The values may carry different weight as well. Keeping with jobs example, a desire to reduce commute time might be relatively more important than wages. You can use whatever scale you want (i.e. 1-100), but just note that higher numbers indicate that you prefer the value more.', 'data': [], 'multiple': false, 'dependent': true}, 
-            {'title': 'Identify Choices', 'description': 'You often have a number of choices at a particular time. Try to identify all of the relevant ones for your problem.', 'data': [], 'multiple': true, 'dependent': false}, 
-            {'title': 'Rate Each Choice', 'description': 'This can be tough. Take determine how you would rate each choice for each particular value. Again, you can use whatever scale you want (i.e. 1-100), but just note that higher numbers indicate that you prefer the value more.', 'data': [], 'multiple': true, 'dependent': true}, 
-            {'title': 'Find Optimal Decision', 'description': '', 'data': [], 'dependent': true, 'multiple': true}
-
-      ]; 
 
       $scope.previous = function() {
           // clear out data from current step
-          $scope.steps[$scope.step].data = [];
+          localStorageService.set('steps', $scope.steps);
 
           $scope.step -= 1;
       };
@@ -56,7 +64,6 @@ angular.module('decisionApp')
       $scope.submitted = false;
 
       $scope.getWeight = function(array, item) {
-          console.log(array, item);
          return array.length - array.indexOf(item); 
       };
 
@@ -74,7 +81,6 @@ angular.module('decisionApp')
               for (var i = 0; i < $scope.steps[$scope.rowStep].data.length; i += 1) {
                   for (var j = 0; j < $scope.steps[$scope.columnStep].data.length; j += 1) {
                     totals[$scope.steps[$scope.rowStep].data.indexOf($scope.steps[$scope.matrixStep].data[j][i])] +=  $scope.getWeight($scope.steps[$scope.matrixStep].data[j], $scope.steps[$scope.matrixStep].data[j][i]) * $scope.getWeight($scope.steps[$scope.columnStep].data, $scope.steps[$scope.columnStep].data[j]);
-                  console.log(totals);
                   }
                   $scope.steps[$scope.step + 1].data = totals;
               } 
@@ -83,7 +89,12 @@ angular.module('decisionApp')
           // update the data
           $scope.step += 1;
           $scope.submitted = false;
+          localStorageService.set('steps', $scope.steps);
+          localStorageService.set('step', $scope.step);
+
       };
+
+      $scope.setInitialState(false);
 
 
   });

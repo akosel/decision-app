@@ -16,6 +16,7 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngDragDrop',
+    'LocalStorageModule',
     'ngTouch'
   ])
   .config(function ($routeProvider) {
