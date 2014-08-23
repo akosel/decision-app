@@ -11,29 +11,28 @@ angular.module('decisionApp')
   .controller('MainCtrl', function ($scope, localStorageService) {
 //     localStorageService.clearAll();
 
+      $scope.sortOptions = {
+          accept: function(sourceItemHandleScope, destSortableScope) { 
+                return sourceItemHandleScope.itemScope.sortableScope.$id === destSortableScope.$id;
+          },
+          containment: '.rankStep',
+          orderChanged: function(event) {
+          }
+      };
+
       $scope.columnStep = 1;
       $scope.columnWeightStep = 2;
       $scope.rowStep = 3;
       $scope.matrixStep = 4;
 
-      $scope.dragCallback = function(event, ui, $index) {
-          console.log('drag', $index);
-      };
-      $scope.dropCallback = function(event, ui, $index) {
-          // for (var i = 0; i < $scope.steps[$scope.columnStep].data.length; i += 1) {
-          //   $scope.steps[$scope.columnWeightStep].data.push($scope.steps[$scope.columnStep].data.length - i);
-          // }
-          console.log('drop', $index, $scope.steps[$scope.matrixStep].data);
-      };
-
       // XXX such hacks. ng-init was calling the function way too many times. maybe try something else later. for now, whatever.
       $scope.addRow = function() {
-        if ($scope.steps[$scope.columnStep].data.length !== $scope.steps[$scope.matrixStep].data.length || $scope.steps[$scope.rowStep].data.length !== $scope.steps[$scope.matrixStep].data[0].length) {
+        // if ($scope.steps[$scope.columnStep].data.length !== $scope.steps[$scope.matrixStep].data.length || $scope.steps[$scope.rowStep].data.length !== $scope.steps[$scope.matrixStep].data[0].length) {
             $scope.steps[$scope.matrixStep].data = [];
             for (var i = 0; i < $scope.steps[$scope.columnStep].data.length; i += 1) {
                 $scope.steps[$scope.matrixStep].data.push($scope.steps[$scope.rowStep].data.slice(0));
             }
-        }
+        // }
       };
 
       $scope.setInitialState = function(reset) {
@@ -56,12 +55,13 @@ angular.module('decisionApp')
 
       $scope.previous = function() {
           // clear out data from current step
-          localStorageService.set('steps', $scope.steps);
 
           $scope.step -= 1;
+          localStorageService.set('step', $scope.step);
       };
 
       $scope.submitted = false;
+      $scope.changed = false;
 
       $scope.getWeight = function(array, item) {
          return array.length - array.indexOf(item); 

@@ -27,38 +27,31 @@
                     </small>
                 </div>
             </div>
-            <div class='dragContainer' data-drop='true' data-jqyoui-options='{hoverClass: "hover-class"}' jqyoui-droppable='{index: {{ $index }}, onDrop: "dropCallback($index)"}' ng-if="step === columnWeightStep" ng-model='steps[columnStep].data' ng-repeat='s in steps[columnStep].data track by $index'>
+            <ul style='text-align: center; padding: 0;' class='rankStep' sortable="sortOptions" ng-if="step === columnWeightStep" ng-model='steps[columnStep].data' >
                 <!--<label>{{ s }}</label>
                 <input class='form-control' ng-class="{ 'ng-dirty' : submitted }" type='number' ng-model='steps[step].data[$index]' placeholder='Enter weight for {{ s }}' required>
                 -->
-                <div data-drag="true" data-jqyoui-options="{revert: 'invalid'}" ng-model='steps[columnStep].data' jqyoui-draggable="{index: {{ $index }}, onDrag: 'dragCallback($index)'}"> 
-                    <strong>{{ $index + 1 }}. {{ s }}</strong>
-                    <span style='float: right'></span>
-                </div>
-            </div>
-            <div ng-if="step === matrixStep">
-                <table>
-                    <thead>
-                        <tr>
-                            <th ng-repeat='s in steps[columnStep].data track by $index'>
-                                {{ s }}
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td ng-repeat='s in steps[columnStep].data track by $index'>
-                                <div class='dragContainer' data-drop='true' data-jqyoui-options='{hoverClass: "hover-class", scope: "{{ s }}"}' jqyoui-droppable='{index: {{ $index }}, onDrop: "dropCallback($index)"}' ng-model='steps[matrixStep].data[$parent.$index]' ng-repeat='c in steps[rowStep].data track by $index'>
-                                
-                                    <div data-drag="true" data-jqyoui-options='{revert: "invalid", scope: "{{ s }}"}' ng-model='steps[matrixStep].data[$parent.$index]' jqyoui-draggable="{index: {{ $index }}, onDrag: 'dragCallback($index)'}"> 
-                                        <strong>{{ steps[matrixStep].data[$parent.$index][$index] }}</strong>
-                                        <span style='float: right'></span>
-                                    </div>
+                <li ng-repeat='s in steps[columnStep].data' sortable-item>
+                    <div sortable-item-handle> 
+                        <strong>{{ s }}</strong>
+                        <span style='float: right'></span>
+                    </div>
+                </li>
+            </ul>
+            <div class='rankStep' ng-if="step === matrixStep">
+                <div id="columns" class="row">
+                    <div class="value-column" ng-repeat="v in steps[columnStep].data" id="column{{ $index }}">
+                            <h3>{{ v }}</h3>
+                        <ul sortable="sortOptions" ng-model='steps[matrixStep].data[$index]'>
+                            <li sortable-item ng-repeat='c in steps[matrixStep].data[$parent.$index]'>
+                                <div sortable-item-handle> 
+                                    <strong>{{ steps[matrixStep].data[$parent.$parent.$index][$index] }}</strong>
+                                    <span style='float: right'></span>
                                 </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
             <div ng-if="steps[step].multiple == true && steps[step].dependent == false" ng-repeat='s in steps[step].data track by $index'>
                 <input class='form-control' ng-class="{ 'ng-dirty' : submitted }" type='text' ng-model='steps[step].data[$index + 1]' placeholder='{{ s.title }}'>

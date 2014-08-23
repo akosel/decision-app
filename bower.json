@@ -13,7 +13,8 @@
     "angular-route": "1.2.16",
     "jquery": "2.x",
     "jquery-ui": "latest",
-    "angular-local-storage": "~0.0.7"
+    "angular-local-storage": "~0.0.7",
+    "ng-sortable": "~1.1.1"
   },
   "devDependencies": {
     "angular-mocks": "1.2.16",
