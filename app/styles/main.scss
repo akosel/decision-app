@@ -159,17 +159,24 @@ input[type="month"].input-lg {
 }
 .infoContainer {
   border-bottom: 1px solid #e5e5e5;
-  margin: 1em 0;
-  padding: 2em 0;
+  margin: 0 0 1em 0;
+  padding: 0 0 2em 0;
 }
 .inputContainer {
     margin: 3em 0;
 }
 .buttonContainer {
+    text-align: center;
     margin: 3em 0;
+    button {
+        width: 45%;
+        padding: 2em 1em;
+        font-size: 1em;
+    }
 }
-
-
+.helperContainer {
+    float:right;
+}
 .ng-valid.ng-dirty {
     border-color:#78FA89;
 }
@@ -179,46 +186,72 @@ input[type="month"].input-lg {
 .error {
     color:#FA787E;
 }
+.red {
+    background-color: #C93312;
+}
+.green {
+    background-color: #89B151;
+}
+.yellow {
+    background-color: #FDD262;
+}
+.mint {
+    background-color: #D3DDDC;
+}
+.tan {
+    background-color: #C7B19C;
+}
 .hover-class {
     color:#78FA89;
-}
-.dragContainer {
-    display: border-box;
-    border: dashed;
-    .ui-draggable {
-        color:white;
-        background-color:black;
-        margin: 1em auto;
-        padding: 1em 2em;
-    }
-    .ui-draggable-dragging {
-        opacity: .5;
-    }
 }
 /* apply a natural box layout model to all elements */
 *, *:before, *:after {
       -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
 }
+
+/* overrides for the angular-sortable css */
+li.sortable-item,.sortable-placeholder {
+    text-align: center;
+    width: 100%;
+    line-height: 3em;
+    padding: 0 1em;
+}
+.sortable-placeholder {
+    background-color: #D3DDDC;
+    opacity: .9;
+}
+
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
   .container {
         max-width: 730px;
         margin: 0 auto;
   }
+  input {
+    width: 50%;
+    margin: .5em 0;
+  }
 
     /* size of the column */
     .value-column {
         text-align: center;
         display: inline-block;
-        width: 33%;
+        width: 50%;
+        h3 {
+            margin-top: 0;
+            margin-bottom: 0;
+            line-height: 40px;
+            padding-bottom: 19px;
+            font-family: Futura;
+            font-size: 25px;
+        }
         ul {
             float: left;
-            padding: 5px 5px 0 5px;
             li {
+                width: 100%;
+                line-height: 3em;
+                padding: 0 1em;
             }
-        }
-        h3 {
-
         }
     }
 
@@ -231,7 +264,7 @@ input[type="month"].input-lg {
   }
   /* Space out the masthead */
   .header {
-      margin-bottom: 30px;
+      margin-bottom: 15px;
   }
   /* Remove the bottom border on the jumbotron for visual effect */
   .jumbotron {
