@@ -61,7 +61,7 @@
 
             <!-- on steps with multiple inputs, generate some extra input boxes -->
             <div ng-if="steps[step].multiple == true && steps[step].dependent == false" ng-repeat='s in steps[step].data track by $index'>
-                <input class='form-control' ng-class="{ 'ng-dirty' : submitted }" type='text' ng-model='steps[step].data[$index + 1]' placeholder='{{ s.title }}'>
+                <input class='form-control' ng-class="{ 'ng-dirty' : submitted }" type='text' ng-model='steps[step].data[$index + 1]' ng-change='checkBlank($index + 1)' placeholder='{{ s.title }}'>
             </div>
 
             <div ng-if="step === steps.length - 1">

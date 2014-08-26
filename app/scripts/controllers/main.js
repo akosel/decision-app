@@ -61,6 +61,17 @@ angular.module('decisionApp')
       $scope.submitted = false;
       $scope.changed = false;
 
+      $scope.checkBlank = function(v) {
+            console.log('check', v);
+            if ($scope.steps[$scope.step].data[v] === '') {
+                console.log('blank');
+                $scope.steps[$scope.step].data = $scope.steps[$scope.step].data.filter(function(x) {
+                    return x !== '';
+                });
+            }
+            
+      };
+
       $scope.getWeight = function(array, item) {
          return array.length - array.indexOf(item); 
       };

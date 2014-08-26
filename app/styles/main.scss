@@ -94,10 +94,10 @@ button:hover {
 }
 .form-control {
     display: block;
-    height: 34px;
-    padding: 6px 12px;
+    height: 50px;
+    padding: 6px 18px;
     width: 100%;
-    font-size: 14px;
+    font-size: 20px;
     line-height: 1.42857143;
     color: #555;
     background-color: #fff;
@@ -224,6 +224,13 @@ li.sortable-item,.sortable-placeholder {
     background-color: #D3DDDC;
     opacity: .9;
 }
+ul {
+    li {
+        width: 100%;
+        line-height: 3em;
+        padding: 0; 
+    }
+}
 
 /* Responsive: Portrait tablets and up */
 @media screen and (min-width: 768px) {
@@ -257,6 +264,14 @@ li.sortable-item,.sortable-placeholder {
                 padding: 0 1em;
             }
         }
+    }
+    .value-column:nth-child(odd) ul {
+        padding-right: 20px;
+        padding-left: 0;
+    }
+    .value-column:nth-child(even) ul {
+        padding-right: 0px;
+        padding-left: 20px;
     }
 
   /* Remove the padding we set earlier */
