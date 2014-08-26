@@ -71,8 +71,8 @@
             </div>
 
             <div class='buttonContainer'>
-                <button class='green' type="button" ng-hide="step === 0" ng-click="previous()"> &lt;&lt; {{ steps[step - 1].title }}</button>
-                <button class='green' type="submit" ng-hide="step === steps.length - 1" ng-click="next(stepForm.$valid)">{{ steps[step + 1].title }} &gt;&gt;</button>
+                <button class='green' type="button" ng-hide="step === 0" ng-click="previous()"><span style='float: left;'>&lt;</span>{{ steps[step - 1].title }}</button>
+                <button class='green' type="submit" ng-hide="step === steps.length - 1" ng-click="next(stepForm.$valid)">{{ steps[step + 1].title }} <span style='float: right'>&gt;</span></button>
             </div>
 
         </form>
