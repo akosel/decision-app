@@ -81,16 +81,15 @@ body {
     margin-top: 28px;
   }
 }
-
 button {
     padding: 1em;
-    background-color: black;
     color: white;
     border: none;
-    cursor: pointer; 
+    cursor: pointer;
+    background-color: #333;
+    border-radius: 2px;
 }
-button:hover {
-    background-color: grey;
+.buttonContainer {
 }
 .form-control {
     display: block;
@@ -170,13 +169,28 @@ input[type="month"].input-lg {
     margin: 3em 0;
 }
 .buttonContainer {
-    text-align: center;
     margin: 3em 0;
     button {
+        cursor: auto;
+        opacity: 0.2;
         width: 45%;
         padding: 2em 1em;
         font-size: .8em;
+        &.enabled {
+            background-color: #3A3;
+            opacity: 1;
+            cursor: pointer; 
+            &:hover {
+                background-color: darken(#3A3, 10%);
+            }
+        }
     }
+}
+.right {
+    float: right;
+}
+.left {
+    float: left;
 }
 .helperContainer {
     float:right;
