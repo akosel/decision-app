@@ -13,9 +13,17 @@ angular.module('decisionApp')
 
       $scope.sortOptions = {
           accept: function(sourceItemHandleScope, destSortableScope) {
+                      console.log(sourceItemHandleScope.itemScope.sortableScope.$id, destSortableScope.$id);
                 return sourceItemHandleScope.itemScope.sortableScope.$id === destSortableScope.$id;
           },
           containment: '.rankStep'
+      };
+      $scope.columnSortOptions = {
+          accept: function(sourceItemHandleScope, destSortableScope) {
+                      console.log(sourceItemHandleScope.itemScope.sortableScope.$id, destSortableScope.$id);
+                return sourceItemHandleScope.itemScope.sortableScope.$id === destSortableScope.$id;
+          },
+          containment: '.value-column'
       };
 
       $scope.columnStep = 1;
@@ -26,6 +34,7 @@ angular.module('decisionApp')
       // XXX such hacks. ng-init was calling the function way too many times. maybe try something else later. for now, whatever.
       $scope.addRow = function() {
         // if ($scope.steps[$scope.columnStep].data.length !== $scope.steps[$scope.matrixStep].data.length || $scope.steps[$scope.rowStep].data.length !== $scope.steps[$scope.matrixStep].data[0].length) {
+        console.log('addRow');
             $scope.steps[$scope.matrixStep].data = [];
             for (var i = 0; i < $scope.steps[$scope.columnStep].data.length; i += 1) {
                 $scope.steps[$scope.matrixStep].data.push($scope.steps[$scope.rowStep].data.slice(0));
@@ -70,6 +79,11 @@ angular.module('decisionApp')
                 });
             }
 
+      };
+
+      $scope.addNewRow = function() {
+          console.log('adding row', $scope.step);
+            $scope.steps[$scope.step].data.push('');
       };
 
       $scope.getWeight = function(array, item) {

@@ -228,13 +228,16 @@ input[type="month"].input-lg {
 }
 
 /* overrides for the angular-sortable css */
-li.sortable-item,.sortable-placeholder {
+li.as-sortable-item,.as-sortable-placeholder {
     text-align: center;
     width: 100%;
     line-height: 3em;
     padding: 0 1em;
+    border-radius: 2px;
+    border: solid;
+    margin-bottom: 5px;
 }
-.sortable-placeholder {
+.as-sortable-placeholder {
     background-color: #D3DDDC;
     opacity: .9;
 }
@@ -272,6 +275,7 @@ ul {
         }
         ul {
             float: left;
+            width: 100%;
             li {
                 width: 100%;
                 line-height: 3em;

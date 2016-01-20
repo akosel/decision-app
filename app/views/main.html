@@ -22,7 +22,7 @@
         </div>
         <form class='inputContainer' name='stepForm' novalidate>
             <div ng-if="steps[step].dependent == false">
-                <input class='form-control' ng-class="{ 'ng-dirty' : submitted }" type='text' placeholder='{{ s.title }}' name='stepOne' ng-model='steps[step].data[0]' required>
+                <input class='form-control' type='text' placeholder='{{ s.title }}' name='stepOne' ng-model='steps[step].data[0]' required>
                 <div class='error' ng-show='submitted && stepForm.stepOne.$invalid'>
                     <small class='error' ng-show='s.multiple == false && stepForm.stepOne.$error.required'>
                         Text is required
@@ -32,12 +32,12 @@
                     </small>
                 </div>
             </div>
-            <ul style='text-align: center; padding: 0;' class='rankStep' sortable="sortOptions" ng-if="step === columnWeightStep" ng-model='steps[columnStep].data' >
+            <ul style='text-align: center; padding: 0;' class='rankStep' data-as-sortable="sortOptions" ng-if="step === columnWeightStep" ng-model='steps[columnStep].data' >
                 <!--<label>{{ s }}</label>
                 <input class='form-control' ng-class="{ 'ng-dirty' : submitted }" type='number' ng-model='steps[step].data[$index]' placeholder='Enter weight for {{ s }}' required>
                 -->
-                <li ng-repeat='s in steps[columnStep].data' sortable-item>
-                    <div sortable-item-handle>
+                <li ng-repeat='s in steps[columnStep].data' data-as-sortable-item>
+                    <div data-as-sortable-item-handle>
                         <strong>{{ s }}</strong>
                         <span style='float: right'></span>
                     </div>
@@ -46,10 +46,10 @@
             <div class='rankStep' ng-if="step === matrixStep">
                 <div id="columns" class="row">
                     <div class="value-column" ng-repeat="v in steps[columnStep].data" id="column{{ $index }}">
-                        <ul sortable="sortOptions" ng-model='steps[matrixStep].data[$index]'>
+                        <ul data-as-sortable="columnSortOptions" ng-model='steps[matrixStep].data[$index]'>
                             <h3>{{ v }}</h3>
-                            <li sortable-item ng-repeat='c in steps[matrixStep].data[$parent.$index]'>
-                                <div sortable-item-handle>
+                            <li ng-repeat='c in steps[matrixStep].data[$parent.$index]' data-as-sortable-item>
+                                <div data-as-sortable-item-handle>
                                     <strong>{{ steps[matrixStep].data[$parent.$parent.$index][$index] }}</strong>
                                     <span style='float: right'></span>
                                 </div>
@@ -60,9 +60,10 @@
             </div>
 
             <!-- on steps with multiple inputs, generate some extra input boxes -->
-            <div ng-if="steps[step].multiple == true && steps[step].dependent == false" ng-repeat='s in steps[step].data track by $index'>
-                <input class='form-control' ng-class="{ 'ng-dirty' : submitted }" type='text' ng-model='steps[step].data[$index + 1]' ng-change='checkBlank($index + 1)' placeholder='{{ s.title }}'>
+            <div ng-if="steps[step].multiple == true && steps[step].dependent == false" ng-repeat='s in steps[step].data.slice(1) track by $index'>
+                <input class='form-control' type='text' ng-model='steps[step].data[$index + 1]' ng-change='checkBlank($index + 1)' placeholder='{{ s.title }}'>
             </div>
+            <button ng-if="steps[step].multiple == true && steps[step].dependent == false" ng-click="addNewRow()">Add Another</button>
 
             <div ng-if="step === steps.length - 1">
                 <h3 ng-repeat='s in steps[step].data track by $index'>
@@ -72,7 +73,7 @@
 
             <div class='buttonContainer'>
                 <button class="enabled left" type="button" ng-hide="step === 0" ng-click="previous()">Back to {{ steps[step - 1].title }}</button>
-                <button class="right" ng-class="{ 'enabled': stepForm.stepOne.$valid }" type="submit" ng-hide="step === steps.length - 1" ng-click="next(stepForm.$valid)">{{ steps[step + 1].title }}</button>
+                <button class="right" ng-class="{ 'enabled': stepForm.stepOne.$valid || step === columnWeightStep || step === matrixStep }" type="submit" ng-hide="step === steps.length - 1" ng-click="next(stepForm.$valid)">{{ steps[step + 1].title }}</button>
                 <div style='clear: both;'></div>
             </div>
 
