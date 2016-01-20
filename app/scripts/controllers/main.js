@@ -70,15 +70,10 @@ angular.module('decisionApp')
       $scope.submitted = false;
       $scope.changed = false;
 
-      $scope.checkBlank = function(v) {
-            console.log('check', v);
-            if ($scope.steps[$scope.step].data[v] === '') {
-                console.log('blank');
-                $scope.steps[$scope.step].data = $scope.steps[$scope.step].data.filter(function(x) {
-                    return x !== '';
-                });
-            }
-
+      $scope.setBlanks = function() {
+          $scope.steps[$scope.step].data = $scope.steps[$scope.step].data.filter(function(x) {
+              return x !== '';
+          });
       };
 
       $scope.addNewRow = function() {
@@ -95,6 +90,10 @@ angular.module('decisionApp')
             $scope.submitted = true;
             return;
           }
+
+          // Remove blanks
+          $scope.setBlanks();
+
           if ($scope.step === $scope.rowStep) {
             $scope.addRow();
           }

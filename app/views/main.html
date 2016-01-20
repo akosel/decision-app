@@ -63,7 +63,7 @@
             <div ng-if="steps[step].multiple == true && steps[step].dependent == false" ng-repeat='s in steps[step].data.slice(1) track by $index'>
                 <input class='form-control' type='text' ng-model='steps[step].data[$index + 1]' ng-change='checkBlank($index + 1)' placeholder='{{ s.title }}'>
             </div>
-            <button ng-if="steps[step].multiple == true && steps[step].dependent == false" ng-click="addNewRow()">Add Another</button>
+            <button class="add-another-button" ng-if="steps[step].multiple == true && steps[step].dependent == false" ng-click="addNewRow()">+ Add Another</button>
 
             <div ng-if="step === steps.length - 1">
                 <h3 ng-repeat='s in steps[step].data track by $index'>

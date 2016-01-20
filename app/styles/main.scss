@@ -88,8 +88,10 @@ button {
     cursor: pointer;
     background-color: #333;
     border-radius: 2px;
-}
-.buttonContainer {
+    &.add-another-button {
+        width: 100%;
+        font-size: 16px;
+    }
 }
 .form-control {
     display: block;
@@ -179,7 +181,7 @@ input[type="month"].input-lg {
         &.enabled {
             background-color: #3A3;
             opacity: 1;
-            cursor: pointer; 
+            cursor: pointer;
             &:hover {
                 background-color: darken(#3A3, 10%);
             }
@@ -245,7 +247,7 @@ ul {
     li {
         width: 100%;
         line-height: 3em;
-        padding: 0; 
+        padding: 0;
     }
 }
 
