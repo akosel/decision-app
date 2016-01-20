@@ -46,8 +46,8 @@
             <div class='rankStep' ng-if="step === matrixStep">
                 <div id="columns" class="row">
                     <div class="value-column" ng-repeat="v in steps[columnStep].data" id="column{{ $index }}">
+                        <h3>{{ v }}</h3>
                         <ul data-as-sortable="columnSortOptions" ng-model='steps[matrixStep].data[$index]'>
-                            <h3>{{ v }}</h3>
                             <li ng-repeat='c in steps[matrixStep].data[$parent.$index]' data-as-sortable-item>
                                 <div data-as-sortable-item-handle>
                                     <strong>{{ steps[matrixStep].data[$parent.$parent.$index][$index] }}</strong>
